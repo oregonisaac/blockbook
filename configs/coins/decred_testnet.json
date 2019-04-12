@@ -1,15 +1,15 @@
 {
   "coin": {
-    "name": "Decred",
-    "shortcut": "DCR",
-    "label": "Decred",
-    "alias": "decred"
+    "name": "Decred Testnet",
+    "shortcut": "TDCR",
+    "label": "Decred Testnet",
+    "alias": "decred_testnet"
   },
   "ports": {
-    "backend_rpc": 9108,
-    "backend_message_queue": 39408,
-    "blockbook_internal": 10108,
-    "blockbook_public": 11108
+    "backend_rpc": 9109,
+    "backend_message_queue": 39409,
+    "blockbook_internal": 10109,
+    "blockbook_public": 11109
   },
   "ipc": {
     "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
@@ -19,7 +19,7 @@
     "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
   },
   "backend": {
-    "package_name": "backend-decred",
+    "package_name": "backend-decred-testnet",
     "package_revision": "decred-1",
     "system_user": "decred",
     "version": "1.4.0",
