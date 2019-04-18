@@ -1,0 +1,66 @@
+{
+  "coin": {
+    "name": "Decred",
+    "shortcut": "DCR",
+    "label": "Decred",
+    "alias": "decred"
+  },
+  "ports": {
+    "backend_rpc": 9108,
+    "backend_message_queue": 39408,
+    "blockbook_internal": 10108,
+    "blockbook_public": 11108
+  },
+  "ipc": {
+    "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
+    "rpc_user": "rpc",
+    "rpc_pass": "rpc",
+    "rpc_timeout": 25,
+    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
+  },
+  "backend": {
+    "package_name": "backend-decred",
+    "package_revision": "decred-1",
+    "system_user": "decred",
+    "version": "1.4.0",
+    "binary_url": "https://github.com/decred/decred-binaries/releases/download/v1.4.0/decred-linux-amd64-v1.4.0.tar.gz",
+    "verification_type": "sha256",
+    "verification_source": "https://github.com/decred/decred-binaries/releases/download/v1.4.0/manifest-v1.4.0.txt",
+    "extract_command": "tar -C backend --strip 1 -xf",
+    "exclude_files": [],
+    "exec_command_template": "{{.Env.BackendInstallPath}}/{{.Coin.Alias}}/dcrd --datadir={{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend -conf={{.Env.BackendInstallPath}}/{{.Coin.Alias}}/{{.Coin.Alias}}.conf -pid=/run/{{.Coin.Alias}}/{{.Coin.Alias}}.pid",
+    "logrotate_files_template": "{{.Env.BackendDataPath}}/{{.Coin.Alias}}/backend/*.log",
+    "postinst_script_template": "",
+    "service_type": "forking",
+    "service_additional_params_template": "",
+    "protect_memory": true,
+    "mainnet": true,
+    "server_config_file": "decred.conf",
+    "client_config_file": "decred_client.conf",
+    "additional_params": {
+      "deprecatedrpc": "estimatefee"
+    }
+  },
+  "blockbook": {
+    "package_name": "blockbook-decred",
+    "system_user": "blockbook-decred",
+    "internal_binding_template": ":{{.Ports.BlockbookInternal}}",
+    "public_binding_template": ":{{.Ports.BlockbookPublic}}",
+    "explorer_url": "https://explorer.dcrdata.org",
+    "additional_params": "",
+    "block_chain": {
+      "parse": true,
+      "mempool_workers": 8,
+      "mempool_sub_workers": 2,
+      "block_addresses_to_keep": 300,
+      "xpub_magic": 50178342,
+      "xpub_magic_segwit_p2sh": 0,
+      "xpub_magic_segwit_native": 0,
+      "additional_params": {}
+    }
+  },
+  "meta": {
+    "package_maintainer": "oregonisaac",
+    "package_maintainer_email": "isaac@decred.org"
+  }
+}
